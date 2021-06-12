@@ -251,4 +251,7 @@ function Invoke-VulnAD {
     Write-Good "DCSync Done"
     VulnAD-DisableSMBSigning
     Write-Good "SMB Signing Disabled"
+    $sw = New-Object System.IO.StreamWriter("C:\Windows\Temp\VulnAD.txt")
+    $sw.WriteLine("VulnAD Executed")
+    $sw.Close()
 }
