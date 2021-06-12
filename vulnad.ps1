@@ -224,6 +224,10 @@ function Invoke-VulnAD {
         [System.String]
         $DomainName
     )
+    $ErrorActionPreference="SilentlyContinue"
+    Stop-Transcript | out-null
+    $ErrorActionPreference = "Continue"
+    Start-Transcript -path C:\VulnAD-Log.txt -append
     ShowBanner
     $Global:Domain = $DomainName
     Set-ADDefaultDomainPasswordPolicy -Identity $Global:Domain -LockoutDuration 00:01:00 -LockoutObservationWindow 00:01:00 -ComplexityEnabled $false -ReversibleEncryptionEnabled $False -MinPasswordLength 4
@@ -252,4 +256,5 @@ function Invoke-VulnAD {
     VulnAD-DisableSMBSigning
     Write-Good "SMB Signing Disabled"
     New-Item -Path "C:\Windows\Temp\" -Name "VulnAD.txt" -ItemType "file" -Value "VulnAD Executed"
+    Stop-Transcript
 }
